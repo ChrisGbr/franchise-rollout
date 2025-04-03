@@ -3,5 +3,5 @@
   connection: local
   tasks:
     - name: Zeige Testnachricht
-      debug:
+      ansible.builtin.debug:
         msg: "Ansible funktioniert!"
