@@ -14,9 +14,9 @@ SETTINGS
   protected_settings = <<PROTECTED_SETTINGS
     {
       "fileUris": [
-        "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/setup-domain.ps1"
+        "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/setup-domain.ps1",
+        "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/configure-ou.ps1"
       ]
     }
 PROTECTED_SETTINGS
 }
-
