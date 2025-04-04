@@ -20,4 +20,3 @@ New-ADUser -Name "Anna Mitarbeiter" `
   -Path "OU=Berlin01,DC=franchise,DC=local" `
   -AccountPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force) `
   -Enabled $true
-+
