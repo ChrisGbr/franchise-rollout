@@ -1,14 +1,16 @@
-# OU anlegen
-New-ADOrganizationalUnit -Name "Berlin01" -Path "DC=franchise,DC=local"
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
-# Gruppen anlegen
-New-ADGroup -Name "Admins_Berlin01" -GroupScope Global -Path "OU=Berlin01,DC=franchise,DC=local"
-New-ADGroup -Name "Mitarbeiter_Berlin01" -GroupScope Global -Path "OU=Berlin01,DC=franchise,DC=local"
+Install-ADDSForest `
+  -DomainName "franchise.local" `
+  -DomainNetbiosName "FRANCHISE" `
+  -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force) `
+  -Force
 
-# Benutzer anlegen
-New-ADUser -Name "Anna Mitarbeiter" `
-  -SamAccountName "anna.mitarbeiter" `
-  -UserPrincipalName "anna.mitarbeiter@franchise.local" `
-  -Path "OU=Berlin01,DC=franchise,DC=local" `
-  -AccountPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force) `
-  -Enabled $true
+# Scheduled Task zur OU-Konfiguration nach Reboot
+$scriptPath = "C:\configure-ou.ps1"
+if (Test-Path $scriptPath) {
+    $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Unrestricted -File `"$scriptPath`""
+    $trigger = New-ScheduledTaskTrigger -AtStartup
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -StartWhenAvailable
+    Register-ScheduledTask -TaskName "Run-FranchiseOU" -Action $action -Trigger $trigger -Settings $settings -RunLevel Highest -User "SYSTEM"
+}
