@@ -7,7 +7,10 @@ resource "azurerm_virtual_machine_extension" "bootstrap_ad_berlin" {
 
   settings = <<SETTINGS
   {
-    "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File setup-domain.ps1"
+    "fileUris": [
+  "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/bootstrap-combined.ps1"
+    ]
+
   }
   SETTINGS
 
