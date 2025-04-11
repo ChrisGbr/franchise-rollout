@@ -7,17 +7,14 @@ resource "azurerm_virtual_machine_extension" "bootstrap_ad_berlin" {
 
   settings = <<SETTINGS
   {
-    "fileUris": [
-  "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/bootstrap-combined.ps1"
-    ]
-
+    "commandToExecute": "powershell.exe -ExecutionPolicy Bypass -File bootstrap-combined.ps1"
   }
   SETTINGS
 
   protected_settings = <<PROTECTED_SETTINGS
   {
     "fileUris": [
-      "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/setup-domain.ps1"
+      "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/bootstrap-combined.ps1"
     ]
   }
   PROTECTED_SETTINGS
