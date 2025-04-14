@@ -9,7 +9,7 @@ Log "Erstelle Scheduled Task für die OU-Konfiguration..."
 
 $taskName = "ConfigureOU"
 $persistentScriptPath = "C:\Scripts\configure-ou.ps1"
-$remoteScriptUrl = "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/configure-ou.ps1"  # Passe diese URL an!
+$remoteScriptUrl = "https://raw.githubusercontent.com/ChrisGbr/franchise-rollout/feature/terraform-extension-ad/scripts/configure-ou.ps1"  # Passe diese URL falls nötig an!
 
 # Stelle sicher, dass der Ordner "C:\Scripts" existiert, andernfalls erstellen
 if (-not (Test-Path "C:\Scripts")) {
@@ -25,7 +25,7 @@ if (-not (Test-Path $localScriptPath)) {
         Invoke-WebRequest -Uri $remoteScriptUrl -OutFile $localScriptPath -ErrorAction Stop
         Log "Datei $localScriptPath wurde erfolgreich heruntergeladen."
     } catch {
-        Log "Fehler beim Herunterladen von $remoteScriptUrl: $_"
+        Log ("Fehler beim Herunterladen von " + $remoteScriptUrl + ": " + $_.Exception.Message)
     }
 }
 
