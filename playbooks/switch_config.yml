@@ -1,0 +1,8 @@
+- name: Configure switch
+  hosts: switch
+  gather_facts: no
+  tasks:
+    - name: Apply switch config from template
+      ios_config:
+        src: ../templates/switch_config.j2
+

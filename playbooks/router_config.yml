@@ -1,0 +1,7 @@
+- name: Configure router
+  hosts: router
+  gather_facts: no
+  tasks:
+    - name: Apply router config from template
+      ios_config:
+        src: ../templates/router_config.j2

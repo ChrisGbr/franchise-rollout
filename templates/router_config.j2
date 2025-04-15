@@ -1,0 +1,16 @@
+hostname Franchise-Router
+ip domain-name franchise.local
+
+crypto key generate rsa modulus 2048
+
+username admin privilege 15 secret admin
+
+line vty 0 4
+ login local
+ transport input ssh
+
+interface GigabitEthernet0/0/1
+ no shutdown
+ ip address 10.10.10.10 255.255.255.0
+
+ip ssh version 2

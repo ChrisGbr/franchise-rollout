@@ -1,0 +1,28 @@
+interface FastEthernet2/0/3
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 10
+ switchport mode trunk
+
+interface FastEthernet2/0/48
+ switchport access vlan 10
+ switchport mode access
+
+vlan 10
+ name Management
+
+interface Vlan10
+ no shutdown
+ ip address 10.10.10.20 255.255.255.0
+
+ip domain-name franchise.local
+
+crypto key generate rsa modulus 2048
+
+username admin privilege 15 secret admin
+
+line vty 0 4
+ login local
+ transport input ssh
+
+ip ssh version 2
+ip default-gateway 10.10.10.10
