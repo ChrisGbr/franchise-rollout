@@ -1,33 +1,8 @@
----
-- name: Franchise-Switch Basis-Konfiguration
-  hosts: franchise_switches
+- name: Configure switch
+  hosts: switch
   gather_facts: no
-  collections:
-    - cisco.ios
-
   tasks:
-    - name: VLAN 10 – Mitarbeiter
+    - name: Apply switch config from template
       ios_config:
-        lines:
-          - name Mitarbeiter
-        parents: vlan 10
+        src: ../templates/switch_config.j2
 
-    - name: VLAN 20 – Gäste-WLAN
-      ios_config:
-        lines:
-          - name Gaeste-WLAN
-        parents: vlan 20
-
-    - name: Interfaces zuweisen (Beispiel)
-      ios_config:
-        lines:
-          - switchport mode access
-          - switchport access vlan 10
-        parents: interface GigabitEthernet0/1
-
-    - name: Gästeport
-      ios_config:
-        lines:
-          - switchport mode access
-          - switchport access vlan 20
-        parents: interface GigabitEthernet0/2
